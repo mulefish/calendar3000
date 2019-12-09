@@ -120,6 +120,7 @@ class Scheduler extends React.Component {
         <option value='2020'>2020</option>
         <option value='2021' >2021</option>
       </select>
+  <hr/>      
      </div>
     );
   }
