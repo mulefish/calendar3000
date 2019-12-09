@@ -1,14 +1,21 @@
-import React, {Component} from 'react';
-import logo from './logo.svg';
+import React  from 'react';
+
 import './App.css';
 import Scheduler from './Scheduler';
 
 class App extends React.Component {
 
+
+  constructor(props) {
+    super(props);
+
+  }
+
+
   render() { 
     return (
       <div className="App">
-    ZOOM
+
     <Scheduler />
       </div>
     );

@@ -32,39 +32,32 @@ class Scheduler extends React.Component {
     const lastDay = new Date(this.activeYear, this.activeMonth + 1, 0);
     const dayNumber = firstDay.getDay() // this will be a number like 6 for 'saturday' or '1' for 'monday'
     const count = lastDay.getDate() // this will be a number like 28 for 'number of days in febuary' 
-    let populateDays = 0
-    let cellsCount = 0
 
-    let i = 0  
-    let j = 0
-    let rows = [] 
-    let day = 0 
+    let i = 0  // for the ary of arries
+    let j = 0  // for the calendar 
+    let rows = [] // the calendar 
+    let day = 0 // counter relative to the _week_ 
     while ( j <  count ) {
 
       if ( i % 7 == 0 ) {
         rows.push([])
         day = 0
       }
-
-
       i++
       if ( i >= dayNumber) {
         j++
         rows[rows.length - 1][day] = j
       } else {
-        rows[rows.length - 1][day] = "-"
-
-
-
+        rows[rows.length - 1][day] = "_"
       }
       day++
- 
-      console.log( "i " + i + "   j " + j )
-
-
-
-
     }
+
+    let remainder = 7 - day
+    for ( let leftOverDay = day; leftOverDay < ( remainder + day ) ; leftOverDay++ ) { 
+      rows[rows.length - 1][leftOverDay] = leftOverDay + "_"
+    }
+
 
 
 rows.forEach((sevenDays, x )=>{
@@ -88,7 +81,7 @@ rows.forEach((sevenDays, x )=>{
       <div>
 
       <hr></hr>
-      <select onChange={this.changeMonth}>
+      <select onChange={this.changeMonth} defaultValue={this.activeMonth}>
         <option value='0'>January</option>
         <option value='1'>February</option>
         <option value='2'>March</option>
@@ -100,11 +93,11 @@ rows.forEach((sevenDays, x )=>{
         <option value='8'>September</option>
         <option value='9'>October</option>
         <option value='10'>November</option>
-        <option value='11' selected>December</option>
+        <option value='11' >December</option>
       </select>
 
-      <select onChange={this.changeYear}>
-        <option value='2019' selected>2019</option>
+      <select onChange={this.changeYear}  defaultValue={this.activeYear}>
+        <option value='2019' >2019</option>
         <option value='2020'>2020</option>
         <option value='2021' >2021</option>
       </select>
