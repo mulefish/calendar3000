@@ -6,12 +6,6 @@ import Scheduler from './Scheduler';
 class App extends React.Component {
 
 
-  constructor(props) {
-    super(props);
-
-  }
-
-
   render() { 
     return (
       <div className="App">

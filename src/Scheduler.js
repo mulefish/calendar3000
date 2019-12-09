@@ -32,7 +32,7 @@ class Scheduler extends React.Component {
     let day = 0 // counter relative to the _week_ 
     while ( j <  count ) {
 
-      if ( i % 7 == 0 ) {
+      if ( i % 7 === 0 ) {
         rows.push([])
         day = 0
       }
@@ -70,9 +70,9 @@ class Scheduler extends React.Component {
     let ary = [] 
 
 
-    this.state.rows.forEach((r) => { 
-      ary.push( <Row data={r} />)
-
+    this.state.rows.forEach((r, i ) => { 
+      const key = "r" + i 
+      ary.push( <Row key={key} data={r} />)
     })
 
 
