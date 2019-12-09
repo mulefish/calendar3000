@@ -7,26 +7,19 @@ class Scheduler extends React.Component {
 
   constructor(props) {
     super(props);
-    const dayMap = {
-      Sun:0,
-      Mon:1,
-      Tue:2,
-      Wed:3,
-      Thu:4,
-      Fri:5,
-      Sat:6
-    }
     const now = new Date() 
     this.activeMonth = now.getMonth()
     this.activeYear = now.getYear() + 1900
-    
-
-
     this.state = {
-
+      rows:[]
     }
-
   } 
+
+  componentDidMount() { 
+    this.setDate()
+  }
+
+
   setDate() { 
     const firstDay = new Date(this.activeYear, this.activeMonth, 1);
     const lastDay = new Date(this.activeYear, this.activeMonth + 1, 0);
@@ -55,14 +48,11 @@ class Scheduler extends React.Component {
 
     let remainder = 7 - day
     for ( let leftOverDay = day; leftOverDay < ( remainder + day ) ; leftOverDay++ ) { 
-      rows[rows.length - 1][leftOverDay] = leftOverDay + "_"
+      rows[rows.length - 1][leftOverDay] = "_"
     }
 
+    this.setState({rows:rows})
 
-
-rows.forEach((sevenDays, x )=>{
-  console.log( x + "   " + JSON.stringify( sevenDays ))
-})
   }
 
   changeMonth = (event) => {
@@ -77,8 +67,27 @@ rows.forEach((sevenDays, x )=>{
 
   render() { 
 
+    let ary = [] 
+
+
+    this.state.rows.forEach((r) => { 
+      ary.push( <Row data={r} />)
+
+    })
+
+
+
+
+
     return (
       <div>
+
+      <table>
+        <tbody>
+        {ary}
+        </tbody>
+      </table>
+
 
       <hr></hr>
       <select onChange={this.changeMonth} defaultValue={this.activeMonth}>

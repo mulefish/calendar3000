@@ -40,7 +40,7 @@ class Caller {
                     if ( verdict === true ) {
                         console.log( cc.bgGreen("PASS") + " " + msg + " | " + cc.bgYellowBright(func) )
                     } else {
-    					console.log( cc.bgGreen("FAIL") + " " + msg + " | " + cc.bgYellowBright(func) )
+    					console.log( cc.blink(cc.bgRed("FAIL")) + " " + msg + " | " + cc.bgYellowBright(func) )
                     }
 				}
 			}
