@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Row from './Row';
+import RowHeader from './RowHeader';
 
 class Scheduler extends React.Component {
 
@@ -41,14 +42,14 @@ class Scheduler extends React.Component {
         j++
         rows[rows.length - 1][day] = j
       } else {
-        rows[rows.length - 1][day] = "_"
+        rows[rows.length - 1][day] = ""
       }
       day++
     }
 
     let remainder = 7 - day
     for ( let leftOverDay = day; leftOverDay < ( remainder + day ) ; leftOverDay++ ) { 
-      rows[rows.length - 1][leftOverDay] = "_"
+      rows[rows.length - 1][leftOverDay] = ""
     }
 
     this.setState({rows:rows})
@@ -70,6 +71,7 @@ class Scheduler extends React.Component {
     let ary = [] 
 
 
+
     this.state.rows.forEach((r, i ) => { 
       const key = "r" + i 
       ary.push( <Row key={key} data={r} />)
@@ -84,6 +86,7 @@ class Scheduler extends React.Component {
 
       <table>
         <tbody>
+        <RowHeader data={["Sun", "Mon", "Tue","Wed","Thu","Fri","Sat"]} />
         {ary}
         </tbody>
       </table>
