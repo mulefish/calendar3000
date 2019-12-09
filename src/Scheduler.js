@@ -35,38 +35,31 @@ class Scheduler extends React.Component {
     let populateDays = 0
     let cellsCount = 0
 
-    // while(populateDays<count){
-    //   if(cellCount<dayNumber){
-    //     \\enter empty to cell
-    //   } else {
-    //     populateDays++
-    //   }
-    // }
-
-    
-    let isAlive = true
     let i = 0  
-    let j = 0 
-    while ( isAlive== true ) {
+    let j = 0
+    let rows = [] 
+    let day = 0 
+    while ( j <  count ) {
 
-    
+      if ( i % 7 == 0 ) {
+        rows.push([])
+        day = 0
+      }
+
+
       i++
       if ( i >= dayNumber) {
         j++
-
-    
-
+        rows[rows.length - 1][day] = j
       } else {
-    
+        rows[rows.length - 1][day] = "-"
+
+
 
       }
+      day++
  
       console.log( "i " + i + "   j " + j )
-
-
-      if ( j >=  count ) { 
-        isAlive = false 
-      }
 
 
 
@@ -74,7 +67,9 @@ class Scheduler extends React.Component {
     }
 
 
-
+rows.forEach((sevenDays, x )=>{
+  console.log( x + "   " + JSON.stringify( sevenDays ))
+})
   }
 
   changeMonth = (event) => {
