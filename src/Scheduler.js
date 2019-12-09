@@ -2,6 +2,7 @@ import React from 'react';
 
 import Row from './Row';
 import RowHeader from './RowHeader';
+import { WSAEINVALIDPROVIDER } from 'constants';
 
 class Scheduler extends React.Component {
 
@@ -11,9 +12,15 @@ class Scheduler extends React.Component {
     const now = new Date() 
     this.activeMonth = now.getMonth()
     this.activeYear = now.getYear() + 1900
+    this.cellWidth = ( window.innerWidth - 400 )  / 7
+    this.cellHeight = ( window.innerHeight * 0.61 ) / 5
+
+
     this.state = {
       rows:[]
     }
+
+
   } 
 
   componentDidMount() { 
@@ -74,7 +81,7 @@ class Scheduler extends React.Component {
 
     this.state.rows.forEach((r, i ) => { 
       const key = "r" + i 
-      ary.push( <Row key={key} data={r} />)
+      ary.push( <Row key={key}  height={this.cellHeight}  width={this.cellWidth} data={r} />)
     })
 
 
@@ -86,7 +93,7 @@ class Scheduler extends React.Component {
 
       <table>
         <tbody>
-        <RowHeader data={["Sun", "Mon", "Tue","Wed","Thu","Fri","Sat"]} />
+        <RowHeader height={this.cellHeight} width={this.cellWidth} data={["Sun", "Mon", "Tue","Wed","Thu","Fri","Sat"]} />
         {ary}
         </tbody>
       </table>

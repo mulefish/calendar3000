@@ -7,7 +7,7 @@ class RowHeader extends React.Component {
     let cells = []
     this.props.data.forEach((day, i )=>{
         const key = 'c' + i
-        cells.push(<CellHeader key={key} data={day}/>)
+        cells.push(<CellHeader key={key}  width={this.props.width}  data={day}/>)
       })
     return (
         <tr>{cells}</tr>
