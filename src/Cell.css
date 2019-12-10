@@ -1,0 +1,39 @@
+input{
+    padding: 2px;
+}
+.modal-content{
+    padding: 10px 0px;
+}
+.modal-event-input{
+    padding: 10px 0px;
+}
+.color-box{
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}
+.color-box:before {
+    content: "\00a0";
+}
+.color-blue {
+    color: blue;
+}
+.color-green {
+    color: green;
+}
+.color-yellow {
+    color: yellow;
+}
+.color-red {
+    color: red;
+}
+.color-grey {
+    color: grey;
+}
+.title-text{
+    color: #FFF;
+}
+.titles-wrapper{
+    max-height: 100px;
+    overflow: auto;    
+}
