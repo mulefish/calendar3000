@@ -40,9 +40,12 @@ class Cell extends React.Component {
   handleAdd = () => {
     let title = this.state.dTitle
     if(title.trim().length > 0) {
+      let updateTitles = [...this.state.titles, {title: title, color: this.state.dColor, comment: this.state.dComment}]
       this.setState({
-        titles: [...this.state.titles, {title: title, color: this.state.dColor, comment: this.state.dComment}]
+        titles: [...updateTitles ]
       })
+      console.log("handleAdd. Titles now are: " + JSON.stringify(updateTitles))
+
     }
     //reset modal fields and close
       this.setState({
@@ -53,6 +56,7 @@ class Cell extends React.Component {
         editMode: false,
         show: false
       })
+
   }
 
   handleUpdate = () => {
@@ -65,7 +69,10 @@ class Cell extends React.Component {
       this.setState({
         titles: [...updateTitles]
       })
+      console.log("handleUpdate. Titles now are: " + JSON.stringify(updateTitles))
+
     }
+
   //reset modal fields and close
       this.setState({
         dTitle: "",
@@ -82,7 +89,9 @@ class Cell extends React.Component {
     this.setState({
       titles: [...updateTitles]
     })
-  //reset modal fields and close
+    console.log("handleDelete delete this one: " + originalTitle)
+    console.log("handleDelete. Titles now are: " + JSON.stringify(updateTitles))
+      //reset modal fields and close
       this.setState({
         dTitle: "",
         dColor: DEFAULT_COLOR,
