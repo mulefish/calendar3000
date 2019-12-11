@@ -20,7 +20,20 @@ export default class Modal extends React.Component {
                     <div className="modal-inner">
                         <div>{this.props.children}</div>
                         <div className="modal-buttons">
-                            <div><button onClick={this.props.handleAdd}>OK</button><button onClick={this.props.handleClose}>Close</button></div>
+                            <div>
+                                {this.props.editMode?
+                                <div>
+                                    <button onClick={this.props.handleUpdate}>Update</button>
+                                    <button onClick={this.props.handleDelete}>Delete</button>
+                                    <button onClick={this.props.handleClose}>Close</button>
+                                </div>
+                                 :
+                                 <div>
+                                    <button onClick={this.props.handleAdd}>Add</button>
+                                    <button onClick={this.props.handleClose}>Close</button>
+                                </div>
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>

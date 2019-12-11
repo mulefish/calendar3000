@@ -5,7 +5,10 @@ input{
     padding: 10px 0px;
 }
 .modal-event-input{
-    padding: 10px 0px;
+    padding: 0px 0px 10px 0px;
+}
+.modal-event-color {
+    padding: 0px 0px 10px 0px;
 }
 .color-box{
     width: 20px;
@@ -37,3 +40,12 @@ input{
     max-height: 100px;
     overflow: auto;    
 }
+.title-wrapper{
+    height: 25px;
+    font-size: 12px;
+    margin: 2px;
+    padding: 0px 10px;
+    opacity: 0.8;
+    border-radius: 4px;    
+    display: flex;
+    align-items: center;}

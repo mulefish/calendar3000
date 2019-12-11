@@ -3,21 +3,25 @@ import Modal from './Modal';
 
 import './Cell.css';
 
+const DEFAULT_COLOR = "#adadad" //Grey
+
 class Cell extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
       show: false,
-      newTitle: "",
-      titleColor: "#adadad", //Grey
-      comment: "",
+      editMode: false,
+      dTitle: "",
+      dOriginalTitle: "",
+      dColor: DEFAULT_COLOR,
+      dComment: "",
       titles: []
     }
   } 
 
   showModal = () => {
-    if(!this.state.show) {
+    if(!this.state.show && this.props.data) {
       this.setState({
         show: true
       })
@@ -30,69 +34,105 @@ class Cell extends React.Component {
     })
   }
 
-  resetTitle = () => {
-    this.setState({
-      newTitle: ""
-    })
-  }
-
-  resetTitleColor = () => {
-    this.setState({
-      titleColor: "#adadad" //Grey
-    })
-  }
-
-  resetComment = () => {
-    this.setState({
-      comment: ""
-    })
-  }
-
   handleAdd = () => {
-    //Add new title
-    let title = this.state.newTitle
+    let title = this.state.dTitle
     if(title.trim().length > 0) {
       this.setState({
-        titles: [...this.state.titles, {title: title, color: this.state.titleColor, comment: this.state.comment}]
+        titles: [...this.state.titles, {title: title, color: this.state.dColor, comment: this.state.dComment}]
       })
     }
-    //reset modal fields
-    this.resetTitle()
-    this.resetTitleColor()
-    this.resetComment()
-    //close
-    this.hideModal()
+    //reset modal fields and close
+      this.setState({
+        dTitle: "",
+        dOriginalTitle: "",
+        dColor: DEFAULT_COLOR,
+        dComment: "",
+        editMode: false,
+        show: false
+      })
+  }
+
+  handleUpdate = () => {
+    let title = this.state.dTitle
+    if(title.trim().length > 0) {
+      let originalTitle = this.state.dOriginalTitle
+      let updateTitles = [...this.state.titles]
+      var foundIndex = updateTitles.findIndex(x => x.title === originalTitle);
+      updateTitles[foundIndex] = {title: this.state.dTitle, color: this.state.dColor, comment: this.state.dComment};
+      this.setState({
+        titles: [...updateTitles]
+      })
+    }
+  //reset modal fields and close
+      this.setState({
+        dTitle: "",
+        dColor: DEFAULT_COLOR,
+        dComment: "",
+        editMode: false,
+        show: false
+      })
+  }
+
+  handleDelete = () => {
+    let originalTitle = this.state.dOriginalTitle
+    let updateTitles = this.state.titles.filter(function(t) { return t.title != originalTitle})
+    this.setState({
+      titles: [...updateTitles]
+    })
+  //reset modal fields and close
+      this.setState({
+        dTitle: "",
+        dColor: DEFAULT_COLOR,
+        dComment: "",
+        editMode: false,
+        show: false
+      })
   }
 
   handleNewTitleChange = e => {
     let value = e.target.value
     this.setState({
-      newTitle: value
+      dTitle: value
     })
   }
 
   handleTitleColorChange = e => {
     let value = e.target.value
     this.setState({
-      titleColor: value
+      dColor: value
     })
   }
 
   handleCommentChange = e => {
     let value = e.target.value
     this.setState({
-      comment: value
+      dComment: value
     })
+  }
+
+  handleOpenTitle = t => {
+    console.log("t=" + JSON.stringify(t))
+    if(t){
+      //set the modal fields and open
+      this.setState({
+        dTitle: t.title,
+        dOriginalTitle: t.title,
+        dColor: t.color,
+        dComment: t.comment,
+        editMode: true,
+        show: true
+      })
+    }
   }
 
   render() { 
     const w = {'width': this.props.width, 'height': this.props.height }
-    const bgColor = {'backgroundColor': this.state.titleColor}
+    const bgColor = {'backgroundColor': this.state.dColor}
     let aryTitles = [] 
     this.state.titles.forEach((t, i ) => { 
       const key = "t" + i 
       const bgColorCell = {'backgroundColor': t.color}
-      aryTitles.push( <div key={key} style={bgColorCell}><span className="title-text">{t.title}</span></div>)
+      aryTitles.push( <div key={key} style={bgColorCell} className="title-wrapper" onClick={() => {this.handleOpenTitle(t)}}><span className="title-text">{t.title}</span></div>)
     })
 
     return (    
@@ -103,14 +143,14 @@ class Cell extends React.Component {
                 {aryTitles}
               </div>
             :null}  
-            <Modal show={this.state.show}  handleClose={this.hideModal} handleAdd={this.handleAdd}>
+            <Modal show={this.state.show} editMode={this.state.editMode} handleClose={this.hideModal} handleAdd={this.handleAdd} handleUpdate={this.handleUpdate} handleDelete={this.handleDelete}>
             <div className="modal-content">Create a new event:</div>
             <div className="modal-event-input">
-              <input type="text" name="newTitle" value={this.state.newTitle} onChange={e => {this.handleNewTitleChange(e)}} style={{'width': 100+'%'}}/>
+              <input type="text" name="dTitle" value={this.state.dTitle} onChange={e => {this.handleNewTitleChange(e)}} style={{'width': 100+'%'}}/>
             </div>
             <div className="modal-event-color">
               <label>Color:</label><br></br>
-              <select  value={this.state.titleColor} onChange={this.handleTitleColorChange}>
+              <select  value={this.state.dColor} onChange={this.handleTitleColorChange} style={{'height': 20 + 'px'}}>
                 <option value='#6393e0'>Blue</option>
                 <option value='#88b972'>Green</option>
                 <option value='#eba760'>Yellow</option>
@@ -122,7 +162,7 @@ class Cell extends React.Component {
             <div>
             <label>
               Comments: <br></br>
-              <textarea value={this.state.comment} onChange={this.handleCommentChange} cols={40} rows={10} />
+              <textarea value={this.state.dComment} onChange={this.handleCommentChange} rows={10}  style={{'width': 100 + '%'}} />
             </label>
             </div>
             </Modal>
