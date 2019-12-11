@@ -2,6 +2,9 @@ import React from 'react';
 import Modal from './Modal';
 
 import './Cell.css';
+import getHoliday from './Holidays'
+
+
 
 const DEFAULT_COLOR = "#adadad" //Grey
 
@@ -75,7 +78,7 @@ class Cell extends React.Component {
 
   handleDelete = () => {
     let originalTitle = this.state.dOriginalTitle
-    let updateTitles = this.state.titles.filter(function(t) { return t.title != originalTitle})
+    let updateTitles = this.state.titles.filter(function(t) { return t.title !== originalTitle})
     this.setState({
       titles: [...updateTitles]
     })
@@ -125,7 +128,16 @@ class Cell extends React.Component {
     }
   }
 
+
   render() { 
+    const holiday = getHoliday(this.props.activeYear, this.props.activeMonth, this.props.data)
+
+    let dayCss = 'day'
+    if ( this.props.dayOfTheWeek === 0 ) {
+      dayCss = 'Sunday'
+    } else if ( this.props.dayOfTheWeek === 6 ) {
+      dayCss = 'Saturday'
+    }
     const w = {'width': this.props.width, 'height': this.props.height }
     const bgColor = {'backgroundColor': this.state.dColor}
     let aryTitles = [] 
@@ -136,8 +148,9 @@ class Cell extends React.Component {
     })
 
     return (    
-        <td className='day' style={w} onClick={e => { this.showModal()}}>
+        <td className={dayCss} style={w} onClick={e => { this.showModal()}}>
             {this.props.data}
+            <div className='holiday'>{holiday}</div>
             {aryTitles.length>0 ?
               <div className="titles-wrapper">
                 {aryTitles}

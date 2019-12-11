@@ -2,7 +2,7 @@ import React from 'react';
 
 import Row from './Row';
 import RowHeader from './RowHeader';
-import { WSAEINVALIDPROVIDER } from 'constants';
+//import { WSAEINVALIDPROVIDER } from 'constants';
 
 class Scheduler extends React.Component {
 
@@ -81,7 +81,7 @@ class Scheduler extends React.Component {
 
     this.state.rows.forEach((r, i ) => { 
       const key = "r" + i 
-      ary.push( <Row key={key}  height={this.cellHeight}  width={this.cellWidth} data={r} />)
+      ary.push( <Row key={key}  activeYear={this.activeYear} activeMonth={this.activeMonth} height={this.cellHeight}  width={this.cellWidth} data={r} />)
     })
 
 
