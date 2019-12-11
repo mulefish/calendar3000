@@ -3,3 +3,19 @@
   background-color: #f9f9f9;
   vertical-align: top;
 }
+.day {
+  background-color: #f9f9f9;
+  vertical-align: top;
+}
+
+/* Sunday and Saturday are _intentionally_ gross: TODO: Pick a nice color */ 
+/* cf. Cell.js */
+.Sunday {
+  background-color: #0fffff;
+  vertical-align: top;
+}
+.Saturday {
+  background-color: #fff0ff;
+  vertical-align: top;
+}
+

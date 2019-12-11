@@ -95,8 +95,19 @@ class Cell extends React.Component {
       aryTitles.push( <div key={key} style={bgColorCell}><span className="title-text">{t.title}</span></div>)
     })
 
+    let dayCss = 'day'
+    if ( this.props.dayOfTheWeek == 0 ) {
+      dayCss = 'Sunday'
+    } else if ( this.props.dayOfTheWeek == 6 ) {
+      dayCss = 'Saturday'
+    }
+
+
     return (    
-        <td className='day' style={w} onClick={e => { this.showModal()}}>
+
+
+
+        <td className={dayCss} style={w} onClick={e => { this.showModal()}}>
             {this.props.data}
             {aryTitles.length>0 ?
               <div className="titles-wrapper">
@@ -109,7 +120,9 @@ class Cell extends React.Component {
               <input type="text" name="newTitle" value={this.state.newTitle} onChange={e => {this.handleNewTitleChange(e)}} style={{'width': 100+'%'}}/>
             </div>
             <div className="modal-event-color">
-              <label>Color:</label><br></br>
+
+              
+              <label>Label color:</label> &nbsp;
               <select  value={this.state.titleColor} onChange={this.handleTitleColorChange}>
                 <option value='#6393e0'>Blue</option>
                 <option value='#88b972'>Green</option>
@@ -117,6 +130,8 @@ class Cell extends React.Component {
                 <option value='#aa0000'>Red</option>
                 <option value='#adadad'>Grey</option>
               </select>
+
+
               <span className="color-box" style={bgColor}></span>
             </div>
             <div>

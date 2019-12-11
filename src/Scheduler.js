@@ -20,7 +20,12 @@ class Scheduler extends React.Component {
       rows:[]
     }
 
-
+    ////
+    this.pretendHolidayDB = {
+      2019:["goat"],
+      2020:["finch"],
+      2021:["wren"]
+    }
   } 
 
   componentDidMount() { 
@@ -75,22 +80,18 @@ class Scheduler extends React.Component {
 
   render() { 
 
+    // TODO: NAME THIS better - in a year 'ary' will mean
     let ary = [] 
 
 
 
     this.state.rows.forEach((r, i ) => { 
       const key = "r" + i 
-      ary.push( <Row key={key}  height={this.cellHeight}  width={this.cellWidth} data={r} />)
+      ary.push( <Row key={key}  activeYear={this.activeYear} activeMonth={this.activeMonth} height={this.cellHeight}  width={this.cellWidth} data={r} />)
     })
-
-
-
-
 
     return (
       <div>
-
       <table>
         <tbody>
         <RowHeader height={this.cellHeight} width={this.cellWidth} data={["Sun", "Mon", "Tue","Wed","Thu","Fri","Sat"]} />
